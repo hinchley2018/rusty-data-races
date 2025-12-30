@@ -1,17 +1,18 @@
 format:
-        cargo fmt --quiet
+	cargo fmt --quiet
 
 lint:
-        cargo clippy --quiet
+	cargo clippy --quiet
 
 # Clean Rust build artifacts
 clean:
-        cargo clean
+	cargo clean
 
 test:
-        cargo test --quiet
+	cargo test --quiet
 
 run:
-        cargo run 
+	cargo run
 
 all: format lint test run
+

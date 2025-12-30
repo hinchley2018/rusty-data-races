@@ -6,18 +6,18 @@ use std::time::Duration;
 
 fn main() {
     let data = Arc::new(Mutex::new(vec![1, 2, 3]));
-
+    // Spawn three threads
     let handles: Vec<_> = (0..3)
-        .map(|i| {
+        .map(|thread_id| {
             // clone the Arc, not the Mutex
-            let data = Arc::clone(&data); 
+            let data = Arc::clone(&data);
             thread::spawn(move || {
-                println!("Thread {} trying to lock...", i);
+                println!("Thread {} trying to lock...", thread_id);
                 let mut data = data.lock().unwrap();
-                println!("Thread {} acquired lock", i);
+                println!("Thread {} acquired lock", thread_id);
                 thread::sleep(Duration::from_millis(100));
-                data[i] += 1;
-                println!("Thread {} released lock", i);
+                data[thread_id] += 1;
+                println!("Thread {} released lock", thread_id);
             })
         })
         .collect();
